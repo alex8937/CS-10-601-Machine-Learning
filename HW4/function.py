@@ -1,5 +1,6 @@
 import numpy as np
 from math import log, exp
+import matplotlib.pyplot as plt
 
 def LR_CalcObj(XTrain, yTrain, wHat):
     vexp = np.vectorize(exp)
@@ -55,7 +56,6 @@ def LR_PredictLabels(XTest, yTest, wHat):
 
 def plotObjVals(objVals):
     numIters = np.arange(1,len(objVals) + 1)
-    numIters
     plt.plot(numIters, objVals)
     plt.axis([0, 90, -350, -50])
     plt.xlabel('Number of iterations')
@@ -110,4 +110,31 @@ def plotAvgPredictionError(XTrain, yTrain, XTest, yTest, times = 10):
     plt.xlabel('Training Set Size')
     plt.ylabel('Prediction Error')
     plt.legend()
+    plt.show()
+
+def findTwoLargestInds(wHat):
+    index1 = index2 = -1
+    w1 = w2 = 0
+    for idx, w in enumerate(abs(wHat[1:])):
+        if w >= w1 and w >= w2:
+            w2, index2 = w1, index1
+            w1, index1 = w, idx
+        elif w2 <= w < w1:
+            w2, index2 = w, idx
+    return index1, index2
+
+def plotDecisionBoundary(wHat, XTest, yTest):
+    index1, index2 = findTwoLargestInds(wHat)
+    X1 = XTest[:, index1]
+    X2 = XTest[:, index2]
+    colormap = np.array(['r', 'g'])
+    plt.scatter(X1, X2, s = 50, c=colormap[yTest.flatten()])
+    w0, w1, w2 = wHat.flatten()[0], wHat[1:].flatten()[index1], wHat[1:].flatten()[index2]
+    delta = 0.5
+    baseX = np.array([min(X1) - delta, max(X1) + delta])
+    fun = lambda w0, w1, w2, x : (-w1 * x - w0) / w2
+    plt.plot(baseX, fun(w0, w1, w2, baseX))
+    plt.xlabel('Dimension 1')
+    plt.ylabel('Dimension 2')
+    plt.title('Decision Boundary')
     plt.show()
