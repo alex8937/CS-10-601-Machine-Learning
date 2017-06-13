@@ -11,44 +11,16 @@ yTrain = mat_content['yTrain']
 XTest = mat_content['XTest']
 yTest = mat_content['yTest']
 
-print(type(XTrain))
-def LR_CalcObj(XTrain, yTrain, wHat):
-    vexp = np.vectorize(exp)
-    vlog = np.vectorize(log)
-    zHat = np.dot(XTrain, wHat[1:]) + wHat[0]
-    logProb = yTrain * yHat - vlog(1 + vexp(yHat))
-    return np.sum(logProb)
-
-def sigmoid(Z)
-
-def LR_CalcGrad(XTrain, yTrain, wHat):
-
-
-LR_CalcObj(XTrain, yTrain, wHat)
-
-vexp = np.vectorize(exp)
-vlog = np.vectorize(log)
-
 wHat = np.array([1] * 11).reshape(-1,1)
-wHat[0]=1
+wHat[0]=0
 wHat
-wHat.shape
-XTrain.shape
 
-yHat = np.dot(XTrain, wHat[1:]) + wHat[0]
-yHat
-yHat.shape
+obj = LR_CalcObj(XTrain, yTrain, wHat)
 
-a = vlog(1 + vexp(yHat))
-a = yTrain * yHat - vlog(1 + vexp(yHat))
-(a).shape
-np.sum(a)
+grad = LR_CalcGrad(XTrain, yTrain, wHat)
 
-x1 = np.arange(9.0).reshape((-1,1))
-x1
-x1.shape
-x2 = np.arange(3.0)
-x2
+wHat = LR_UpdateParams(wHat, grad, 1)
 
-XTrain
-print(sum(XTrain[0, :]))
+hasConverged = LR_CheckConvg(1, obj, 1)
+
+ LR_GradientAscent(XTrain, yTrain, eta = 0.01, tol = 0.001)
