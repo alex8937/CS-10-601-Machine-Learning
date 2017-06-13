@@ -1,5 +1,25 @@
 import numpy as np
-from math import log
+from math import log, exp
+
+def LR_CalcObj(XTrain, yTrain, wHat):
+    vexp = np.vectorize(exp)
+    vlog = np.vectorize(log)
+    zHat = np.dot(XTrain, wHat[1:]) + wHat[0]
+    print(zHat)
+    logProb = yTrain * yHat - vlog(1 + vexp(zHat))
+    print(logProb)
+    return np.sum(logProb)
+
+LR_CalcObj(XTrain, yTrain, wHat)
+
+def
+
+
+
+
+
+
+
 
 def NB_Classify(D, p, X):
     """Complete the function [yHat] = NB Classify(D, p, X). The input X is an m × V matrix
