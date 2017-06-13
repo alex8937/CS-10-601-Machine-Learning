@@ -36,6 +36,15 @@ plotOnePredictionError(XTrain, yTrain, XTest, yTest)
 plotAvgPredictionError(XTrain, yTrain, XTest, yTest, times = 50)
 
 
+index1 = index2 = -1
+w1 = w2 = -999999999
+for idx, w in enumerate(wHat[1:]):
+    if w >= w1 and w >= w2:
+        w2, index2 = w1, index1
+        w1, index1 = w, idx
+    else if w2 <= w < w:
+        w2, index2 = w, idx
+print(w1, w2)
 
 
 wHat
