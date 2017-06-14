@@ -11,6 +11,7 @@ XTest = mat_content['XTest']
 yTest = mat_content['yTest']
 
 wHat, objVals = LR_GradientAscent(XTrain, yTrain, eta = 0.01, tol = 0.001)
+wHat
 
 yHat, numErrors = LR_PredictLabels(XTest, yTest, wHat)
 
